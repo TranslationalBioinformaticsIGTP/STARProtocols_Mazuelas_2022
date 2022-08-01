@@ -24,13 +24,13 @@ For performing a good QC analysis, it is necessary to follow carefully the next 
 
 ##5- Download the reference transcriptome refMrna.fa.gz from UCSC https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/?C=M;O=A
 
-##6- Fill up the QCheatmap_pipeline_parameters.yaml with the necesary information. There are some parameters you should fill up befor starting the pipeline.
+##6- Fill up the QCheatmap_pipeline_parameters.yaml with the necesary information. **WARNING!** There are some parameters you should fill up before running the pipeline.
 
 ##7- Create a Salmon index using STARProtocols_SalmonIndex.sh contained in this directory for processing your data
 
 ##8- Pseudoalign your fastq files using  Rscript STARProtocols_Salmon_Alignment.R in your command line.
 
-##9- Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated runnig Rscript STARProtocols_QC.R in your command line. 
+##9- Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated running Rscript STARProtocols_QC.R in your command line. 
 
 *Please, refer to Mazuelas et al. 2022 Figure 3 E(https://doi.org/10.1016/j.celrep.2022.110385) for a reference of a good neurofibromasphere differenciation.*
 
