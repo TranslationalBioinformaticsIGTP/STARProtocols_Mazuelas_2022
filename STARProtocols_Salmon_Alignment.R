@@ -16,21 +16,21 @@ library(yaml)
 ####### Parameters
 
 #All samples parameters
-params <- yaml.load_file("./Parameters/AllSamples_pipeline_parameters.yaml")
+params <- yaml.load_file("./Parameters/QCheatmap_pipeline_parameters.yaml")
 
-analysis.dir <- "./RNA-Seq_2D_3D_ipsDifferentiation"
+analysis.dir <- params$analysis.dir
 sample.data <- read.table(file = params$sample.data.file , header = T, sep = "\t", stringsAsFactors = FALSE, comment.char = "")
-file.names <- sample.data$File.Name
+file.names <- sample.data$File.Name #Names of the Fastq file samples: this must be contained in the data.frame sample.data information.
 
 # Salmon alignement and quantification parameters
-salmonDir <- "/soft/bio/salmon-1.1.0/bin/salmon"
+salmonDir <- params$salmon.software #path where salmon is installed
 file1.suffix <- params$file1.suffix
 file2.suffix <- params$file2.suffix
 fastqdir <- params$fastqdir  # Fastq data dir
-transcript.index <- params$transcript.index # Index generated previusly"
+transcript.index <- params$transcript.index # Index previusly generated
 output.suffix <- params$output.suffix
 output.quants <- params$output.quants # Directory to save Salmon quant results
-threads <- 8 # Number of threads
+threads <- params$threads # Number of threads
 
 ###################   Functions   ################### 
 source(file ="./utils.R")

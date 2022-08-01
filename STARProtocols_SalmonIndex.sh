@@ -3,12 +3,12 @@
 ################ Parameters #####################
 #where your index file will be stored
 index_dir= "./SalmonIndexing_Metadata" 
-#Reference genome 
-refGenome="./Genomes/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz"
-#Reference transcriptome
-refTranscriptome="./Transcriptomes/hg38_refMrna.fa.gz"
-#Salmon software
-Salmon= "/software/debian-10/bio/salmon-1.8.0/bin/salmon"
+#Reference genome: download from https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/?C=M;O=A
+refGenome="hg38.fa.gz"
+#Reference transcriptome: download from https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/?C=M;O=A
+refTranscriptome="refMrna.fa.gz"
+#Salmon software path
+Salmon= ""
 
 ######### Get decoys from reference genome ########### 
 # For obtaining the decoys.txt file we followed the process described at https://combine-lab.github.io/alevin-tutorial/2019/selective-alignment/
