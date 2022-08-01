@@ -18,7 +18,7 @@ For performing a good QC analysis, it is necessary to follow carefully the next 
 
 ##2- Download Bioconductor v3.15 or superior https://www.bioconductor.org/install/
 
-##3- Download Salmon v.1.9.0 from https://salmon.readthedocs.io/en/latest/index.html (salmon is only available for Linux systems)
+##3- Download Salmon v.1.9.0 from https://salmon.readthedocs.io/en/latest/index.html **(salmon is only available for Linux systems)**
 
 ##4- Download the reference genome hg38.fa.gz from UCSC https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/?C=M;O=A
 
@@ -30,7 +30,7 @@ For performing a good QC analysis, it is necessary to follow carefully the next 
 
 ##8- Pseudoalign your fastq files using  Rscript STARProtocols_Salmon_Alignment.R in your command line.
 
-##9- Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated. 
+##9- Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated runnig Rscript STARProtocols_QC.R in your command line. 
 
 *Please, refer to Mazuelas et al. 2022 Figure 3 E(https://doi.org/10.1016/j.celrep.2022.110385) for a reference of a good neurofibromasphere differenciation.*
 
