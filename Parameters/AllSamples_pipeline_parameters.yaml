@@ -1,0 +1,38 @@
+#############################################################
+#        All Samples parameters for the pipeline            #
+#############################################################
+
+#Sample groups
+model: ["2D","3D", "Cells"]
+samples.group: "Model"
+stages: ["NC", "day7","day14","day30"]
+
+#Sample data information
+sample.data.file: "./Sample.Info.AllSamples.3.csv"
+genotype: ["PP","MM","MM_SC","PM_F",""]
+
+#Directories
+model.dir: "AllSamples"
+
+#Salmon parameters
+file1.suffix: "_1.fastq.gz"
+file2.suffix: "_2.fastq.gz"
+fastqdir: "./Data" # The directory where your fastQ files is stored
+transcript.index: "./Results/Salmon/salmon_indexes_UCSC_hg38" #Add the directory where your salmon index is stored
+output.suffix: "_quant"
+output.quants: "./Results/Salmon" # The directory where Salmon pseudocouns (quants files) are stored
+
+# Tximport paramenters
+org.columns: "SYMBOL"
+org.keytype: "REFSEQ"
+
+#Roadmap markers directory
+roadmap.markers.dir: "./FiPS_WT_2D_RoadmapMarkers"
+
+# DESeq2 parameters
+filt.min.reads: 5
+filt.min.samples: 1
+pvalue: 0.05
+
+# QC heatmap directory
+heatmap.dir: "./QC_Hetmap_NeurofibromaSpheres"
