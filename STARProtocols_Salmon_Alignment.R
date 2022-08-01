@@ -8,9 +8,11 @@
 ###################################################################################################
 
 ####### Packages Needed
+if(!require("DESeq2", quietly = TRUE)) BiocManager::install("DESeq2")
 library(DESeq2)
-library(tximport)
+if(!require("org.Hs.eg.db", quietly = TRUE)) BiocManager::install("org.Hs.eg.db")
 library(org.Hs.eg.db)
+if(!require("yaml", quietly = TRUE)) utils::install.packages("yaml")
 library(yaml)
 
 ####### Parameters

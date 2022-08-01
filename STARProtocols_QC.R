@@ -2,17 +2,25 @@
 #           STAR Protocols Mazuelas et al. 2022          #
 ##########################################################
 ####### Packages Needed
+if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+
+if(!require("DESeq2", quietly = TRUE)) BiocManager::install("DESeq2")
 library(DESeq2)
+if(!require("tximport", quietly = TRUE)) BiocManager::install("tximport")
 library(tximport)
+if(!require("org.Hs.eg.db", quietly = TRUE)) BiocManager::install("org.Hs.eg.db")
 library(org.Hs.eg.db)
+if(!require("yaml", quietly = TRUE)) utils::install.packages("yaml")
 library(yaml)
+if(!require("ggplot2", quietly = TRUE)) utils::install.packages("ggplot2")
 library(ggplot2)
+if(!require("ggbeeswarm", quietly = TRUE)) utils::install.packages("ggbeeswarm")
 library(ggbeeswarm)
+if(!require("pheatmap", quietly = TRUE)) utils::install.packages("pheatmap")
 library(pheatmap)
-library(viridis)
-library(apeglm)
-library(ggrepel)
+if(!require("RColorBrewer", quietly = TRUE)) utils::install.packages("RColorBrewer")
 library(RColorBrewer)
+if(!require("gplots", quietly = TRUE)) utils::install.packages("gplots")
 library(gplots)
 
 #######################  Loading Functions #########################
