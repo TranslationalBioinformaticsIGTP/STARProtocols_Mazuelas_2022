@@ -1,0 +1,39 @@
+#############################################################
+#       QC heatmap parameters for the pipeline            #
+#############################################################
+
+#Sample data information
+sample.data.file: "./Sample.Info.AllSamples.3.csv" #csv with your data information
+sample.group: #Add here the colname where you contain the contrast group ex: colname = treatment (it contains two groups control and treatment)
+
+# QC heatmap directory
+heatmap.dir: "./QC_Hetmap_NeurofibromaSpheres" #Where your QC result heatmap is saved
+
+#Roadmap markers directory
+roadmap.markers.dir: "./FiPS_WT_2D_RoadmapMarkers"
+stages: ["PSC", "NC", "day7","day14","day30"]
+
+#QC sample counts of roadmap markers 
+counts.roadmap: "./Counts.Roadmap.csv"
+
+#Salmon parameters
+analysis.dir: #directory to run and save Salmon quants (counts)
+salmon.software: #path where salmon is installed
+file1.suffix: "_1.fastq.gz"
+file2.suffix: "_2.fastq.gz"
+fastqdir: "./Data" # The directory where your fastQ files are stored
+transcript.index: "./Results/Salmon/salmon_indexes_UCSC_hg38" #Add the directory where your salmon index is stored
+output.suffix: "_quant"
+output.quants: "./Results/Salmon" # The directory where Salmon pseudocouns (quants files) are stored
+threads: 8 # Number of threads
+
+# Tximport paramenters
+org.columns: "SYMBOL"
+org.keytype: "REFSEQ"
+
+# DESeq2 parameters : We recomend to maintain these paramenters for the QC analysis when using user data to make more comparable the results
+filt.min.reads: 5
+filt.min.samples: 1
+pvalue: 0.05
+
+
