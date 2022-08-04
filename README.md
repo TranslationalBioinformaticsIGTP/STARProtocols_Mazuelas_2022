@@ -4,14 +4,14 @@ Pipeline for performing a Quality Control (QC) analysis of neurofibromaspheres d
 
 **WARNING!** This analysis is performed in a Linux system
 
-This directory contains the necessary files to perform a QC of a new generation of neurospheres differentiation. There are diffent files for processing your RNA-seq data and compare the expression of your
-neurofibromaspheres with the expression of the differentiantion publised at Mazuelas et al. 2022 (https://doi.org/10.1016/j.celrep.2022.110385). Figure 3E of this paper is a representation of how the differentiation of your spheres should look like.
+This directory contains the necessary files to perform a QC of a new generation of neurospheres differentiation. There are different files for processing your RNA-seq data and compare the expression of your
+neurofibromaspheres with the expression of the differentiantion published at Mazuelas et al. 2022 (https://doi.org/10.1016/j.celrep.2022.110385). Figure 3E of this paper is a representation of how the differentiation of your spheres should look like.
 
-In the case you have enough space in your computer and computation capacity, you can also the raw data of Mazuelas et al. 2022 available at EGA under the acession number EGAS00001005907, but it is not strickly necesary for performing this QC analysis.
+In the case you have enough space in your computer and computational capacity, you can also download the raw data of Mazuelas et al. 2022 available at EGA under the acession number EGAS00001005907, but it is not strickly necesary for performing this QC analysis.
 
 
 
-For performing a good QC analysis, it is necessary to follow carefully the next steps:
+For performing a good QC analysis, it is necessary to carefully follow the next steps:
 
  
 ##1- Download R version 4.2.0 https://cran.r-project.org/ and R-Studio from https://www.rstudio.com/products/rstudio/download/#download 
