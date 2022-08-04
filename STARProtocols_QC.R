@@ -92,7 +92,7 @@ filtered.dds <- getFilteredDDS(tximport = txi.salmon,
                                filter_min_reads = filt.min.reads, 
                                filter_min_samples = filt.min.samples)
 
-counts.deseq <- counts(filtered.dds)[rownames(filtered.dds) %in% gene.markers,]
+counts.deseq <- counts(filtered.dds)[rownames(filtered.dds) %in% rownames(counts.roadmap),]
 
 
 # Join your processed data to QC counts.roadmap to compare your differentiation expression results
