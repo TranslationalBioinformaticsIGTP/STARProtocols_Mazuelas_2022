@@ -4,8 +4,8 @@ Pipeline for performing a Quality Control (QC) analysis of neurofibromaspheres d
 
 **WARNING!** This analysis is performed in a Linux system
 
-This directory contains the necessary files to perform a QC of a new generation of neurospheres differentiation. There are different files for processing your RNA-seq data and compare the expression of your
-neurofibromaspheres with the expression of the differentiantion published at Mazuelas et al. 2022 (https://doi.org/10.1016/j.celrep.2022.110385). Figure 3E of this paper is a representation of how the differentiation of your spheres should look like.
+This directory contains the necessary files to perform QC of a new generation of neurospheres. There are different files for processing your RNA-seq data and compare the expression of your
+neurofibromaspheres with the expression of the differentiantion published at Mazuelas et al. 2022 (https://doi.org/10.1016/j.celrep.2022.110385). Figure 3E in this paper is a representation of how the differentiation of your spheres should look like.
 
 In the case you have enough space in your computer and computational capacity, you can also download the raw data of Mazuelas et al. 2022 available at EGA under the acession number EGAS00001005907, but it is not strickly necesary for performing this QC analysis.
 
