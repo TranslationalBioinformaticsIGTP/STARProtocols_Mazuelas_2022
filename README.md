@@ -22,14 +22,16 @@ To perform the QC analysis, please follow these steps:
 
 #### Download Reference data and prepare the Salmon index
 
-5.  Download the reference genome `hg38.fa.gz` from UCSC <https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/?C=M;O=A>
+5.  Download the reference genome `hg38.fa.gz` from UCSC:
 
 ```
-mkdir references && wget 'ftp://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz' -O references/hg38.fa.gz
+mkdir -p references && wget 'ftp://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz' -O references/hg38.fa.gz
 ```
 
-6.  Download the reference transcriptome `refMrna.fa.gz` from UCSC <https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/?C=M;O=A>
-
+6.  Download the reference transcriptome `refMrna.fa.gz` from UCSC: gz
+```
+mkdir -p references && wget 'ftp://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/refMrna.fa.gz' -O references/refMrna.fa.gz
+```
 7.  Create a Salmon index using `STARProtocols_SalmonIndex.sh` contained in this directory for processing your data
 
 #### Run QC pipeline
@@ -42,6 +44,10 @@ mkdir references && wget 'ftp://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/
 Rscript STARProtocols_Salmon_Alignment.R
 ```
 
-9.  Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated running `Rscript STARProtocols_QC.R` in your command line.
+9.  Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated running `STARProtocols_QC.R` in your command line.
+```
+Rscript STARProtocols_QC.R
+```
+
 
 *Please, refer to Figure 3E in Mazuelas et al. 2022 (<https://doi.org/10.1016/j.celrep.2022.110385>) for an example of a good neurofibromasphere differentiation.*
