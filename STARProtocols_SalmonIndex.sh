@@ -3,12 +3,12 @@
 ################ Parameters #####################
 #where your index file will be stored
 index_dir= "./SalmonIndexing_Metadata" 
-#Reference genome: download from https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/?C=M;O=A
-refGenome="hg38.fa.gz"
-#Reference transcriptome: download from https://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/?C=M;O=A
-refTranscriptome="refMrna.fa.gz"
+#Reference genome
+refGenome="./references/hg38.fa.gz"
+#Reference transcriptome
+refTranscriptome="./references/refMrna.fa.gz"
 #Salmon software path
-Salmon= ""
+Salmon= "salmon"
 
 ######### Get decoys from reference genome ########### 
 # For obtaining the decoys.txt file we followed the process described at https://combine-lab.github.io/alevin-tutorial/2019/selective-alignment/
@@ -18,6 +18,7 @@ echo "***********************************************************"
 echo "*** `date` Getting Salmon index  ****"
 echo "***********************************************************"
 
+mkdr -p $index_dir
 cd $index_dir
 
 
