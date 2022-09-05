@@ -31,8 +31,9 @@ source(file = "./rna_seq_Functions.R")
 # QC parameters:Modify this parameter file before starting with the QC analysis.
 params <- yaml.load_file("./Parameters/QCheatmap_pipeline_parameters.yaml")
 
-# Loading your sample data information 
-sample.data <- read.table(file = params$sample.data.file , header = T, sep = ",", stringsAsFactors = FALSE, comment.char = "")
+# Loading your sample data information: Please use Sample.Info.Guide.csv as a guide to load your sample data
+sample.data <- read.table(file = params$sample.data.file , header = T, sep = "\t", stringsAsFactors = FALSE, comment.char = "")
+sample.data <- cbind(sample.data, sample.group = rep (x = c(1,2), nrow(sample.data)/2))#Adding sample.group column
 
 # Loading the Mazuelas et al. 2022 sample count expression of roadmap markers (QCroadmap counts).
 counts.roadmap <- as.matrix(read.table(params$counts.roadmap, header = T, sep = "\t"))
@@ -42,7 +43,7 @@ file.names <- sample.data$File.Name #names of the fastq files
 sample.names <- sample.data$Sample.Name #names of the samples
 
 # Tximport paramenters
-output.quants <- params$output.quants
+output.quants <- params$salmon.dir
 orgdb <- org.Hs.eg.db
 org.columns <- params$org.columns
 org.keytype <- params$org.keytype
@@ -57,8 +58,8 @@ color.plate <-  bluered(80)
 
 # Genes Roadmap pipeline
 gene.markers <- c() 
-for(i in seq_len(length(stages))){
-  gr <- stages[i]
+for(i in seq_len(length(params$stages))){
+  gr <- params$stages[i]
   mks<- read.table(file = file.path(params$roadmap.markers.dir, paste0("up_", gr,".txt")), header = FALSE,stringsAsFactors = FALSE)[,1]
   # mks <- markers[[gr]]
   names(mks) <- rep(gr, length(mks))
@@ -87,7 +88,7 @@ colnames(txi.salmon$length) <- sample.names
 #####################     Procesing the data for the heatmap QC sphere formation    ##############################
 # we recommend filtering your data using the same parametes as we used for our data (filt.min.reads = 5; filt.min.samples = 1)
 filtered.dds <- getFilteredDDS(tximport = txi.salmon,
-                               samples_group = samples.group, 
+                               samples_group = "sample.group", 
                                samples_df = sample.data, 
                                filter_min_reads = filt.min.reads, 
                                filter_min_samples = filt.min.samples)
@@ -120,6 +121,8 @@ myBreaks <- c(seq(min(data_subset_norm), 0, length.out=ceiling(paletteLength/2) 
 
 
 #heatmap of QC Spheres stage specific markers
+if(!file.exists(params$heatmap.dir)) dir.create(params$heatmap.dir)
+
 png(filename = file.path(params$heatmap.dir,"QC_NeurospheresFormation_RoadmapExpression.png"),width=1000, heigth= 800)
 pheatmap(data_subset_norm,
          cluster_cols = F,
