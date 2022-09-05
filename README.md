@@ -24,32 +24,32 @@ To perform the QC analysis, please follow these steps:
  
 #### Download Reference data and prepare the Salmon index
 
-5.  Download the reference genome `hg38.fa.gz` from UCSC:
+6.  Download the reference genome `hg38.fa.gz` from UCSC:
 
 ```
 mkdir -p references && wget 'ftp://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz' -O references/hg38.fa.gz
 ```
 
-6.  Download the reference transcriptome `refMrna.fa.gz` from UCSC: gz
+7.  Download the reference transcriptome `refMrna.fa.gz` from UCSC: gz
 ```
 mkdir -p references && wget 'ftp://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/refMrna.fa.gz' -O references/refMrna.fa.gz
 ```
-7.  Create a Salmon index using `STARProtocols_SalmonIndex.sh` contained in this directory for processing your data
+8.  Create a Salmon index using `STARProtocols_SalmonIndex.sh` contained in this directory for processing your data
 ```
-bash STARProtocols_SalmonIndex.sh
+. ./STARProtocols_SalmonIndex.sh
 ```
 
 #### Run QC pipeline
 
-7.  **WARNING!** Add at the `QCheatmap_pipeline_parameters.yaml` the directory location where your fastq files are stored.  
+9.  **WARNING!** Add at the `QCheatmap_pipeline_parameters.yaml` the directory location where your fastq files are stored.
 
-8.  Pseudoalign your fastq files using `STARProtocols_Salmon_Alignment.R` in your command line.
+10.  Pseudoalign your fastq files using `STARProtocols_Salmon_Alignment.R` in your command line.
 ```
 Rscript STARProtocols_Salmon_Alignment.R
 ```
-9.  Please fill up `Sample.Info.Guide.csv` with your own sample information (fastq file name and sample name).
+11.  Please fill up `Sample.Info.Guide.csv` with your own sample information (fastq file name and sample name).
 
-10.  Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated running `STARProtocols_QC.R` in your command line.
+12.  Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated running `STARProtocols_QC.R` in your command line.
 ```
 Rscript STARProtocols_QC.R
 ```
