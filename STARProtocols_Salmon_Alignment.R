@@ -20,15 +20,25 @@ library(yaml)
 #All samples parameters
 params <- yaml.load_file("./Parameters/QCheatmap_pipeline_parameters.yaml")
 
-analysis.dir <- params$analysis.dir
-sample.data <- read.table(file = params$sample.data.file , header = T, sep = "\t", stringsAsFactors = FALSE, comment.char = "")
-file.names <- sample.data$File.Name #Names of the Fastq file samples: this must be contained in the data.frame sample.data information.
+salmon.dir <- params$salmon.dir
+results.dir <- "results"
+if(!file.exists(results.dir)) dir.create(results.dir)
+if(!file.exists(salmon.dir)) dir.create(salmon.dir)
+
+
+#Sample data fastq files
+fastq.dir <- params$fastq.dir  # Fastq data dir
+fastq.files <- list.files(fastq.dir)
+
+# Getting sample names from data files
+file.names <- gsub("\\.[^.]+","",fastq.files)
+file.names <- gsub("_1","",file.names)
+file.names <- gsub("_2","",file.names)
+file.names <- unique(file.names)
+
 
 # Salmon alignement and quantification parameters
-salmonDir <- params$salmon.software #path where salmon is installed
-file1.suffix <- params$file1.suffix
-file2.suffix <- params$file2.suffix
-fastqdir <- params$fastqdir  # Fastq data dir
+salmon.soft.dir <- params$salmon.soft.dir #path where salmon is installed
 transcript.index <- params$transcript.index # Index previusly generated
 output.suffix <- params$output.suffix
 output.quants <- params$output.quants # Directory to save Salmon quant results
@@ -38,9 +48,9 @@ threads <- params$threads # Number of threads
 source(file ="./utils.R")
 
 ### salmonAlignment
-salmonAlignment <- function(sample.name, salmonDir,
+salmonAlignment <- function(sample.name, salmon.soft.dir,
                             file1.suffix, file2.suffix,
-                            fastqdir,
+                            fastq.dir,
                             transcript.index,
                             output.suffix,
                             output.quants, 
@@ -52,18 +62,19 @@ salmonAlignment <- function(sample.name, salmonDir,
   
   if (!file.exists(file.name)){
     message("missing file", file.name)
-    full.command <- paste0(salmonDir, " quant -i",
+    full.command <- paste0(salmon.soft.dir, " quant -i",
                            transcript.index," -l ",
                            libtype, " -1 ", 
-                           fastqdir,
-                           sample.name,
-                           file1.suffix, " -2 ", 
-                           fastqdir, sample.name, 
-                           file2.suffix, " --validateMappings -p ",
+                           file.path(fastq.dir,
+                           paste0(sample.name,
+                           file1.suffix)), " -2 ", 
+                           file.path(fastq.dir,
+                                     paste0(sample.name,
+                                     file2.suffix)), " --validateMappings -p ",
                            as.character(threads),
                            " -o ", 
-                           output.quants,
-                           sample.name, output.suffix )
+                           file.path(output.quants,
+                           paste0(sample.name, output.suffix)))
     system(full.command, wait = TRUE)
   }
 }
@@ -76,15 +87,18 @@ salmonAlignment <- function(sample.name, salmonDir,
 ###################################################################################################
 
 # ## Executing Salmon alignement by Selective alignement and quantification
+i=1
 for(i in seq_len(length(file.names))){
   sn <- file.names[i]
-  salmonAlignment(sample.name = sn, salmonDir,
-                  file1.suffix = file1.suffix,
-                  file2.suffix = file2.suffix,
-                  fastqdir = fastqdir,
+  sn.files <- fastq.files[grepl(sn, fastq.files)]
+  file.suffix <- gsub(sn,"", sn.files)
+  salmonAlignment(sample.name = sn, salmon.soft.dir = salmon.soft.dir,
+                  file1.suffix = file.suffix[1],
+                  file2.suffix = file.suffix[2],
+                  fastq.dir = fastq.dir,
                   transcript.index = transcript.index,
                   output.suffix = output.suffix,
-                  output.quants = output.quants,
+                  output.quants = salmon.dir,
                   threads = threads
   )
 }
