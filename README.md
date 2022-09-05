@@ -20,6 +20,8 @@ To perform the QC analysis, please follow these steps:
 
 4.  Download and install Salmon v.1.9.0. Follow the instruction at <https://salmon.readthedocs.io/en/latest/index.html> **(salmon is only available for Linux systems)**
 
+5. Download the necesary code release v0.0.1 from XXX
+ 
 #### Download Reference data and prepare the Salmon index
 
 5.  Download the reference genome `hg38.fa.gz` from UCSC:
