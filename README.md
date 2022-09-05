@@ -30,7 +30,7 @@ To perform the QC analysis, please follow these steps:
 mkdir -p references && wget 'ftp://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZips/hg38.fa.gz' -O references/hg38.fa.gz
 ```
 
-7.  Download the reference transcriptome `refMrna.fa.gz` from UCSC: gz
+7.  Download the reference transcriptome `refMrna.fa.gz` from UCSC:
 ```
 mkdir -p references && wget 'ftp://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/refMrna.fa.gz' -O references/refMrna.fa.gz
 ```
