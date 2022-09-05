@@ -27,7 +27,7 @@ salmon.soft.dir: "salmon"
 salmon.dir: "./results/Salmon/" #directory to run and save Salmon quants (counts)
 transcript.index: "./SalmonIndexing_Metadata/salmon_index" #Add the directory where your salmon index is stored
 output.suffix: "_quant"
-threads: 4 # Number of threads
+threads: 1 # Number of threads
 
 # Tximport paramenters
 org.columns: "SYMBOL"
