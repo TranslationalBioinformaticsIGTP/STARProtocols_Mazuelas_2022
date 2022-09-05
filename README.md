@@ -33,18 +33,21 @@ mkdir -p references && wget 'ftp://hgdownload.cse.ucsc.edu/goldenPath/hg38/bigZi
 mkdir -p references && wget 'ftp://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/refMrna.fa.gz' -O references/refMrna.fa.gz
 ```
 7.  Create a Salmon index using `STARProtocols_SalmonIndex.sh` contained in this directory for processing your data
+```
+bash STARProtocols_SalmonIndex.sh
+```
 
 #### Run QC pipeline
 
-7.  Fill in the `QCheatmap_pipeline_parameters.yaml` with the necessary information. **WARNING!** There are some parameters you should fill up before running the pipeline.
+7.  **WARNING!** Add at the `QCheatmap_pipeline_parameters.yaml` the directory location where your fastq files are stored.  
 
 8.  Pseudoalign your fastq files using `STARProtocols_Salmon_Alignment.R` in your command line.
-
 ```
 Rscript STARProtocols_Salmon_Alignment.R
 ```
+9.  Please fill up `Sample.Info.Guide.csv` with your own sample information (fastq file name and sample name).
 
-9.  Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated running `STARProtocols_QC.R` in your command line.
+10.  Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated running `STARProtocols_QC.R` in your command line.
 ```
 Rscript STARProtocols_QC.R
 ```
