@@ -29,7 +29,7 @@ sed -i.bak -e 's/>//g' $index_dir/decoys.txt
 zcat $refTransciptome $refGenome > $index_dir/gentrome.fa.gz
 
 #Get Salmon index
-$Salmon index -t $index_dir/gentrome.fa.gz -d $index_dir/decoys.txt -p $threads -i $index_dir/salmon_index -k 31
+$Salmon index -t $index_dir/gentrome.fa.gz -d $index_dir/decoys.txt -p $threads -i $index_dir/salmon_index 
 
 echo "*** `date` Salmon index obtained  ****"
 
