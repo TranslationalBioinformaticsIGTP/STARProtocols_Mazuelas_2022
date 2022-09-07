@@ -33,7 +33,7 @@ params <- yaml.load_file("./Parameters/QCheatmap_pipeline_parameters.yaml")
 
 # Loading your sample data information: Please use Sample.Info.Guide.csv as a guide to load your sample data
 sample.data <- read.table(file = params$sample.data.file , header = T, sep = "\t", stringsAsFactors = FALSE, comment.char = "")
-sample.data <- cbind(sample.data, sample.group = rep (x = c(1,2), nrow(sample.data)/2))#Adding sample.group column
+sample.data <- cbind(sample.data, sample.group = rep_len(x = c(1,2), length.out = nrow(sample.data)))#Adding sample.group column
 
 # Loading the Mazuelas et al. 2022 sample count expression of roadmap markers (QCroadmap counts).
 counts.roadmap <- as.matrix(read.table(params$counts.roadmap, header = T, sep = "\t"))
@@ -97,8 +97,8 @@ counts.deseq <- counts(filtered.dds)[rownames(filtered.dds) %in% rownames(counts
 
 
 # Join your processed data to QC counts.roadmap to compare your differentiation expression results
-counts.deseq <- cbind(counts.roadmap,counts.deseq)
-
+counts.deseq <- cbind(counts.roadmap[rownames(counts.roadmap)%in% rownames(counts.deseq),], counts.deseq)
+ 
 #Perform a rlog transformation of the joined counts.
 dds.rlog <- rlog(counts.deseq)
 
@@ -123,7 +123,7 @@ myBreaks <- c(seq(min(data_subset_norm), 0, length.out=ceiling(paletteLength/2) 
 #heatmap of QC Spheres stage specific markers
 if(!file.exists(params$heatmap.dir)) dir.create(params$heatmap.dir)
 
-png(filename = file.path(params$heatmap.dir,"QC_NeurospheresFormation_RoadmapExpression.png"),width=1000, heigth= 800)
+png(filename = file.path(params$heatmap.dir,"QC_NeurospheresFormation_RoadmapExpression.png"),width=1000, height= 800)
 pheatmap(data_subset_norm,
          cluster_cols = F,
          cluster_rows =F,
@@ -145,3 +145,5 @@ pheatmap(data_subset_norm,
 
 )
 dev.off()
+
+now.msg("QC Heatmap of neurofibromaspheres obtained")
