@@ -41,7 +41,7 @@ mkdir -p references && wget 'ftp://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZi
 
 #### Run QC pipeline
 
-9.  **WARNING!** Add at the `QCheatmap_pipeline_parameters.yaml` the directory location where your fastq files are stored.
+9.  **WARNING!** Add at the `Parameters/QCheatmap_pipeline_parameters.yaml` the directory location where your fastq files are stored.
 
 10.  Pseudoalign your fastq files using `STARProtocols_Salmon_Alignment.R` in your command line.
 ```
