@@ -26,7 +26,7 @@ grep "^>" <(gunzip -c $refGenome) | cut -d " " -f 1 > $index_dir/decoys.txt
 sed -i.bak -e 's/>//g' $index_dir/decoys.txt
 
 # concatenating transcriptome and genome reference file for index
-zcat $refTransciptome $refGenome > $index_dir/gentrome.fa.gz
+zcat $refTranscriptome $refGenome > $index_dir/gentrome.fa.gz
 
 #Get Salmon index
 $Salmon index -t $index_dir/gentrome.fa.gz -d $index_dir/decoys.txt -p $threads -i $index_dir/salmon_index 
