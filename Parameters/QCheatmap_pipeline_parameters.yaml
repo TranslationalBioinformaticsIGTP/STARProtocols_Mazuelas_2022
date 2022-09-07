@@ -6,6 +6,13 @@
 fastq.dir: "" # The directory where your fastq files are stored
 ################################################################
 
+#Salmon parameters
+salmon.soft.dir: "salmon"
+salmon.dir: "./results/Salmon/" #directory to run and save Salmon quants (counts)
+transcript.index: "./SalmonIndex/salmon_index" #Add the directory where your salmon index is stored
+output.suffix: "_quant"
+threads: 1 # Number of threads
+
 #Sample data information
 sample.data.file: "./Sample.Info.Guide.csv" #csv with your data information
 
@@ -21,13 +28,6 @@ stages: ["NC", "day7","day14","day30"]
 
 #QC sample counts of roadmap markers 
 counts.roadmap: "./Counts.Roadmap.csv"
-
-#Salmon parameters
-salmon.soft.dir: "salmon"
-salmon.dir: "./results/Salmon/" #directory to run and save Salmon quants (counts)
-transcript.index: "./SalmonIndexing_Metadata/salmon_index" #Add the directory where your salmon index is stored
-output.suffix: "_quant"
-threads: 1 # Number of threads
 
 # Tximport paramenters
 org.columns: "SYMBOL"
