@@ -2,7 +2,7 @@
 
 ################ Parameters #####################
 #where your index file will be stored
-index_dir="./SalmonIndexing_Metadata" 
+index_dir="./SalmonIndex" 
 #Reference genome
 refGenome="./references/hg38.fa.gz"
 #Reference transcriptome
