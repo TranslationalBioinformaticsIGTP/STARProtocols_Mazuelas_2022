@@ -31,11 +31,8 @@ fastq.dir <- params$fastq.dir  # Fastq data dir
 fastq.files <- list.files(fastq.dir)
 
 # Getting sample names from data files
-file.names <- gsub("\\.[^.]+","",fastq.files)
-file.names <- gsub("_1","",file.names)
-file.names <- gsub("_2","",file.names)
+file.names <- gsub("_[0-9]\\.[^.]+\\.[^.]+","",fastq.files)  #regex to delete i.e. "_1.fastq.gz"
 file.names <- unique(file.names)
-
 
 # Salmon alignement and quantification parameters
 salmon.soft.dir <- params$salmon.soft.dir #path where salmon is installed
