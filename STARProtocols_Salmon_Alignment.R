@@ -8,12 +8,17 @@
 ###################################################################################################
 
 ####### Packages Needed
-if(!require("DESeq2", quietly = TRUE)) BiocManager::install("DESeq2")
-library(DESeq2)
-if(!require("org.Hs.eg.db", quietly = TRUE)) BiocManager::install("org.Hs.eg.db")
-library(org.Hs.eg.db)
-if(!require("yaml", quietly = TRUE)) utils::install.packages("yaml")
-library(yaml)
+message("Loading libraries...")
+if(!suppressPackageStartupMessages(require("BiocManager", quietly = TRUE))) install.packages("BiocManager")
+
+if(!suppressPackageStartupMessages(require("DESeq2", quietly = TRUE))) BiocManager::install("DESeq2")
+suppressPackageStartupMessages(library(DESeq2))
+if(!suppressPackageStartupMessages(require("tximport", quietly = TRUE))) BiocManager::install("tximport")
+suppressPackageStartupMessages(library(tximport))
+if(!suppressPackageStartupMessages(require("org.Hs.eg.db", quietly = TRUE))) BiocManager::install("org.Hs.eg.db")
+suppressPackageStartupMessages(library(org.Hs.eg.db))
+if(!suppressPackageStartupMessages(require("yaml", quietly = TRUE))) utils::install.packages("yaml")
+suppressPackageStartupMessages(library(yaml))
 
 ####### Parameters
 
