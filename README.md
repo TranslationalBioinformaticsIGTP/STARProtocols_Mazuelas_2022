@@ -21,6 +21,10 @@ To perform the QC analysis, please follow these steps:
 4.  Download and install Salmon v.1.9.0. Follow the instruction at <https://github.com/COMBINE-lab/salmon/releases/tag/v1.9.0> **(salmon is only available for Linux systems)**
 
 5. Download the necesary code release v1.0.0 from <https://github.com/TranslationalBioinformaticsIGTP/STARProtocols_Mazuelas_2022/releases/tag/v1.0.0>
+```
+wget https://github.com/TranslationalBioinformaticsIGTP/STARProtocols_Mazuelas_2022/archive/refs/tags/v1.0.0.tar.gz 
+tar -xzf
+```
  
 #### Download Reference data and prepare the Salmon index
 
