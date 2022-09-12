@@ -89,7 +89,6 @@ salmonAlignment <- function(sample.name, salmon.soft.dir,
 ###################################################################################################
 
 # ## Executing Salmon alignement by Selective alignement and quantification
-i=1
 for(i in seq_len(length(file.names))){
   sn <- file.names[i]
   sn.files <- fastq.files[grepl(sn, fastq.files)]
