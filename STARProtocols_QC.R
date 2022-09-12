@@ -2,26 +2,28 @@
 #           STAR Protocols Mazuelas et al. 2022          #
 ##########################################################
 ####### Packages Needed
-if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+message("Loading libraries...")
+if(!suppressPackageStartupMessages(require("BiocManager", quietly = TRUE))) install.packages("BiocManager")
 
-if(!require("DESeq2", quietly = TRUE)) BiocManager::install("DESeq2")
-library(DESeq2)
-if(!require("tximport", quietly = TRUE)) BiocManager::install("tximport")
-library(tximport)
-if(!require("org.Hs.eg.db", quietly = TRUE)) BiocManager::install("org.Hs.eg.db")
-library(org.Hs.eg.db)
-if(!require("yaml", quietly = TRUE)) utils::install.packages("yaml")
-library(yaml)
-if(!require("ggplot2", quietly = TRUE)) utils::install.packages("ggplot2")
-library(ggplot2)
-if(!require("ggbeeswarm", quietly = TRUE)) utils::install.packages("ggbeeswarm")
-library(ggbeeswarm)
-if(!require("pheatmap", quietly = TRUE)) utils::install.packages("pheatmap")
-library(pheatmap)
-if(!require("RColorBrewer", quietly = TRUE)) utils::install.packages("RColorBrewer")
-library(RColorBrewer)
-if(!require("gplots", quietly = TRUE)) utils::install.packages("gplots")
-library(gplots)
+
+if(!suppressPackageStartupMessages(require("DESeq2", quietly = TRUE))) BiocManager::install("DESeq2")
+suppressPackageStartupMessages(library(DESeq2))
+if(!suppressPackageStartupMessages(require("tximport", quietly = TRUE))) BiocManager::install("tximport")
+suppressPackageStartupMessages(library(tximport))
+if(!suppressPackageStartupMessages(require("org.Hs.eg.db", quietly = TRUE))) BiocManager::install("org.Hs.eg.db")
+suppressPackageStartupMessages(library(org.Hs.eg.db))
+if(!suppressPackageStartupMessages(require("yaml", quietly = TRUE))) utils::install.packages("yaml")
+suppressPackageStartupMessages(library(yaml))
+if(!suppressPackageStartupMessages(require("ggplot2", quietly = TRUE))) utils::install.packages("ggplot2")
+suppressPackageStartupMessages(library(ggplot2))
+if(!suppressPackageStartupMessages(require("ggbeeswarm", quietly = TRUE))) utils::install.packages("ggbeeswarm")
+suppressPackageStartupMessages(library(ggbeeswarm))
+if(!suppressPackageStartupMessages(require("pheatmap", quietly = TRUE))) utils::install.packages("pheatmap")
+suppressPackageStartupMessages(library(pheatmap))
+if(!suppressPackageStartupMessages(require("RColorBrewer", quietly = TRUE))) utils::install.packages("RColorBrewer")
+suppressPackageStartupMessages(library(RColorBrewer))
+if(!suppressPackageStartupMessages(require("gplots", quietly = TRUE))) utils::install.packages("gplots")
+suppressPackageStartupMessages(library(gplots))
 
 #######################  Loading Functions #########################
 source(file = "./rna_seq_Functions.R")
@@ -31,16 +33,20 @@ source(file = "./rna_seq_Functions.R")
 # QC parameters:Modify this parameter file before starting with the QC analysis.
 params <- yaml.load_file("./Parameters/QCheatmap_pipeline_parameters.yaml")
 
-# Loading your sample data information: Please use Sample.Info.Guide.csv as a guide to load your sample data
-sample.data <- read.table(file = params$sample.data.file , header = T, sep = "\t", stringsAsFactors = FALSE, comment.char = "")
-sample.data <- cbind(sample.data, sample.group = rep_len(x = c(1,2), length.out = nrow(sample.data)))#Adding sample.group column
+#Sample data fastq files
+fastq.dir <- params$fastq.dir  # Fastq data dir
+fastq.files <- list.files(fastq.dir)
+
+# Getting sample names from Fastq data files
+file.names <- unique(gsub("_[0-9]\\.[^.]+\\.[^.]+","",fastq.files))  #regex to delete i.e. "_1.fastq.gz"
+sample.names <- unique(file.names) 
+
+#sample data information
+sample.data <- data.frame(Sample.Name = sample.names, sample.group = rep_len(x = c(1,2), length.out = length(sample.names)))#Adding sample.group column
 
 # Loading the Mazuelas et al. 2022 sample count expression of roadmap markers (QCroadmap counts).
 counts.roadmap <- as.matrix(read.table(params$counts.roadmap, header = T, sep = "\t"))
 
-# Getting the file names of the analysis: this must be contained in the data.frame sample.data information.
-file.names <- sample.data$File.Name #names of the fastq files
-sample.names <- sample.data$Sample.Name #names of the samples
 
 # Tximport paramenters
 output.quants <- params$salmon.dir
@@ -87,11 +93,11 @@ colnames(txi.salmon$length) <- sample.names
 
 #####################     Procesing the data for the heatmap QC sphere formation    ##############################
 # we recommend filtering your data using the same parametes as we used for our data (filt.min.reads = 5; filt.min.samples = 1)
-filtered.dds <- getFilteredDDS(tximport = txi.salmon,
-                               samples_group = "sample.group", 
-                               samples_df = sample.data, 
-                               filter_min_reads = filt.min.reads, 
-                               filter_min_samples = filt.min.samples)
+filtered.dds <- suppressWarnings(getFilteredDDS(tximport = txi.salmon,
+                                                samples_group = "sample.group", 
+                                                samples_df = sample.data, 
+                                                filter_min_reads = filt.min.reads, 
+                                                filter_min_samples = filt.min.samples))
 
 counts.deseq <- counts(filtered.dds)[rownames(filtered.dds) %in% rownames(counts.roadmap),]
 
@@ -105,11 +111,9 @@ dds.rlog <- rlog(counts.deseq)
 ####### Data counts to plot #####
 gene.markers <- gene.markers[gene.markers %in% rownames(dds.rlog)]
 count.data <- dds.rlog[gene.markers,] # sorting rows as FiPS WT 2D markers
-colnames(count.data)
 
 # Data normalization to plot in the heatmap
 data_subset_norm <- t(apply(count.data, 1, cal_z_score))
-colnames(data_subset_norm)
 
 #without iPSC
 data_subset_norm <- data_subset_norm[,!grepl(x=colnames(data_subset_norm),pattern = "PSC")]
@@ -144,6 +148,6 @@ pheatmap(data_subset_norm,
          margins=c(50,50,50,50)
 
 )
-dev.off()
+tt <- dev.off()
 
 now.msg("QC Heatmap of neurofibromaspheres obtained")
