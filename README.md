@@ -47,9 +47,7 @@ mkdir -p references && wget 'ftp://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZi
 ```
 Rscript STARProtocols_Salmon_Alignment.R
 ```
-11.  Please fill up `Sample.Info.Guide.csv` with your own sample information (fastq file name and sample name).
-
-12.  Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated running `STARProtocols_QC.R` in your command line.
+11.  Proceed to create a QC heatmap plot to see if your neurofibromaspheres are well differentiated running `STARProtocols_QC.R` in your command line.
 ```
 Rscript STARProtocols_QC.R
 ```
